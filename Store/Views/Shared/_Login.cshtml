@@ -1,0 +1,21 @@
+﻿
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" title="Manage">Hello @User.Identity.Name</a>
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "btn btn-outline-dark me-2", style = "background-color:aquamarine" })
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-outline-dark me-2", style = "background-color:aquamarine" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Sign up", "SignUp", "Account", null, new { @class = "btn btn-outline-dark me-2", style = "background-color:aquamarine" })
+        </li>
+    }
+</ul>

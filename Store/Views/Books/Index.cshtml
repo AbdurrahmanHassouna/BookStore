@@ -1,0 +1,90 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<Store.Models.Book>
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().Format)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().QuantityInStock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().IsDeleted)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().IsVisible)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().CreatedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Single().UpdatedDate)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Format)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QuantityInStock)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsDeleted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsVisible)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UpdatedDate)
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page, Search = Request.QueryString["Search"] }),
+                new PagedListRenderOptions
+                {
+                    Display = PagedListDisplayMode.IfNeeded,
+                    DisplayPageCountAndCurrentLocation = true,
+                })
+        </div>
+    </div>
+</div>

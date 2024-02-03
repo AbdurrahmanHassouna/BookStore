@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Store.Models.Author>
+
+@{
+    ViewBag.Title = "Authors";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Authors</h2>
+
+    <div class="d-flex align-self-end">
+        @using (Html.BeginForm("Index", "Authors", FormMethod.Post, new { @class = "d-flex me-5 form-inline" }))
+        {
+            @Html.TextBox("Search", null, new { id = "SearchAuthors", placeholder = "Search", @class = "input-group ps-2 rounded" });
+            <input class="btn  btn-outline-dark ml-2" type="submit" value="Search" style="background-color: aquamarine" />
+        }
+
+        <script type="text/javascript">
+            $(function () {
+                $("#SearchAuthors").autocomplete({
+                    source: './Authors/AutoComplete'
+                })
+            });
+        </script>
+    </div>
+    <div class="container">
+        <h2>Authors</h2>
+        <div class="row">
+            @foreach (var author in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">@author.Name</h5>
+                            <p class="card-text">Number of Books: @author.Books.Count()</p>
+                            <a href="@Url.Action("IndexAuthor", "Home", new { authorId = author.Id })" class="btn btn-primary">View Books</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

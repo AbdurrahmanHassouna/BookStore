@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Store.Models.CartItem>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+@if (Model.Count() != 0)
+{
+<div id="Cart">
+    @Html.Partial("_Cart", Model)
+</div>
+
+
+
+<div class="mt-4">
+    @Html.ActionLink("Submit Order", "ConfirmOrder", "Orders", new { order = Model }, new { @class = "btn btn-danger" })
+</div>
+}
+else
+{
+
+    <h1>Cart is empty</h1>
+}

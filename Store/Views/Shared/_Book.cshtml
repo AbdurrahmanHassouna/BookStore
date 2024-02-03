@@ -1,0 +1,75 @@
+﻿@using PagedList
+@using Store.CustomHtmlHelpers
+@model IPagedList<Store.Models.Book>
+
+
+<div class="container-lg">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-2 ">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 position-relative m-2" style="outline:solid;outline-color:black">
+                    <a asp-action="Details" asp-controller="Book" asp-route-id="@item.Id">
+                        <div class="image-container ">
+                            @Html.Image(item.img_path, htmlAttributes: new { @class = "w-100", height = "300" })
+                        </div>
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <text class="text-center fw-medium mb-auto">@item.Name</text>
+                        <text class="fw-light text-center  mb-auto">@item.Author.Name</text>
+                        <p class="card-text align-items-end text-center">
+                            @for (int i = 0; i < (int)item.BookStar; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+
+                            @for (int i = (int)item.BookStar; i < 5; i++)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+
+                        </p>@*stars*@
+                        <div class=" p-2 d-flex justify-content-between align-items-center rounded ps-4 w-100" style="background-color:aquamarine">
+                            <text class="fw-bolder">
+                                $@string.Format("{0:n2}", item.Price)
+                            </text>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                using (Ajax.BeginForm("AddToCart", "Cart", new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "cartItemCount",
+                                    OnBegin="ClearResults"
+                                }))
+                                {
+                                    @Html.Hidden("Id", item.Id)
+                                    <button type="submit" class="btn btn-teal btn-sm rounded " style="background-color:aqua" title="Add to cart">
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="inline-block" style="width: 20px; height: 20px;">
+                                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </button>
+                                }
+
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("Login", "Account"))
+                                {
+                                    <button type="submit" class="btn btn-teal btn-sm rounded " style="background-color:aqua" title="Add to cart">
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="inline-block" style="width: 20px; height: 20px;">
+                                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </button>
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        }
+    </div>
+</div>

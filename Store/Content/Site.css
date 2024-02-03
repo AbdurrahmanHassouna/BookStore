@@ -1,0 +1,57 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.checked {
+    color: orange
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* You can adjust the margin-top value as needed */
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.btn-link {
+    cursor: pointer;
+}
+
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.slide-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    padding: 10px;
+    z-index: 1000;
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Store.Models.Order>
+
+<h2>Orders</h2>
+
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get))
+{
+    <div>
+        Start Date: @Html.TextBox("startDate", ViewBag.StartDate as DateTime?, new { @class = "datepicker" ,@type = "date"})
+        End Date: @Html.TextBox("endDate", ViewBag.EndDate as DateTime?, new { @class = "datepicker", @type = "date" })
+        <input type="submit" value="Filter" />
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Total Amount</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.OrderID</td>
+            <td>@item.OrderDate</td>
+            <td>$@item.TotalAmount</td>
+            <!-- Add more columns as needed -->
+            <td>@Html.ActionLink("Details", "Details", new { id = item.OrderID })</td>
+        </tr>
+    }
+</table>

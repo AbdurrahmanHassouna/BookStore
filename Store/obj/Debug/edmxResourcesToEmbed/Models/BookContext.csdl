@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Bookstbls" Relationship="Self.FK__Bookstbl__Author__4AB81AF0" FromRole="Author" ToRole="Bookstbl" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Format" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ISBN" Type="Int64" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
+    <Property Name="img_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="AuthorId" Type="Int32" />
+    <Property Name="BookStar" Type="Double" />
+    <NavigationProperty Name="Author" Relationship="Self.FK__Bookstbl__Author__4AB81AF0" FromRole="Bookstbl" ToRole="Author" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Bookstbl__Catego__49C3F6B7" FromRole="Bookstbl" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Bookstbls" Relationship="Self.FK__Bookstbl__Catego__49C3F6B7" FromRole="Category" ToRole="Bookstbl" />
+  </EntityType>
+  <Association Name="FK__Bookstbl__Author__4AB81AF0">
+    <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+    <End Role="Bookstbl" Type="Models.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookstbl">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Bookstbl__Catego__49C3F6B7">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Bookstbl" Type="Models.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bookstbl">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BookContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Self.Author" />
+    <EntitySet Name="Books1" EntityType="Models.Book" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <AssociationSet Name="FK__Bookstbl__Author__4AB81AF0" Association="Self.FK__Bookstbl__Author__4AB81AF0">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Bookstbl" EntitySet="Books1" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Bookstbl__Catego__49C3F6B7" Association="Self.FK__Bookstbl__Catego__49C3F6B7">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Bookstbl" EntitySet="Books1" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="Models.User" />
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Lastlogin" Type="DateTime" Precision="0" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

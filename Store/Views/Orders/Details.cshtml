@@ -1,0 +1,32 @@
+﻿@model Store.Models.Order
+
+<h2>Order Details</h2>
+
+<div>
+    <h4>Order ID: @Model.OrderID</h4>
+    <p>Order Date: @Model.OrderDate</p>
+    <p>Order Amount: $@Model.TotalAmount</p>
+    <p>User Name : @Model.Usertbl.Name</p>
+    <!-- Add more order details as needed -->
+
+    <h3>Order Items</h3>
+    <table class="table">
+        <tr>
+            <th>Item ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <!-- Add more columns as needed -->
+        </tr>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td>@item.OrderDetailID</td>
+                <td>@item.BookName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <!-- Add more columns as needed -->
+            </tr>
+        }
+    </table>
+</div>

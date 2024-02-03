@@ -1,0 +1,27 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<Store.Models.Book>
+
+
+
+
+@{
+    ViewBag.Title = "Books";
+}
+<script type="text/javascript" language="javascript">
+    function ClearResults() {
+        $("#CartItemCount").empty()
+    }
+</script>
+
+@Html.Partial("_Book", Model)
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page, Search = Request.QueryString["Search"] }),
+    new PagedListRenderOptions
+    {
+        Display = PagedListDisplayMode.IfNeeded,
+        DisplayPageCountAndCurrentLocation = true,
+        
+    })
+</div>

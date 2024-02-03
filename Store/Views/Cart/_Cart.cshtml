@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Store.Models.CartItem>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Name)
+                </td>
+                <td>
+                    ( $@item.Book.Price x @item.Quantity )   ==>   $@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @using (Ajax.BeginForm("UpdateCart", "Cart", new { Id = item.Book.Id }, new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "Cart",
+                        OnBegin="ClearResult"
+                    }))
+                    {
+                        <div class="dropdown-container">
+                            <div class="dropdown-toggle">
+                                @Html.DropDownList("Quantity", item.Book.selectListItems, new
+                           {
+                               @class = "form-control dropdown",
+                               @value = item.Quantity,
+                               @selected = "selected"
+                           })
+                                <div class="slide-content">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Ajax.ActionLink("Delete", "Delete", "Cart", new { @id = item.Book.Id },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "Cart"
+                        }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Order Total</h5>
+            <p class="card-text">
+                Total: $@Model.Sum(item => item.Price)
+            </p>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').click(function () {
+            // Toggle the visibility of the slide content
+            $(this).next('.slide-content').slideToggle();
+        });
+
+        // Handle change event for dropdowns with the 'form-control' class
+        $('.dropdown').change(function (e) {
+            // Submit the form when the dropdown changes
+            $(this).closest('form').submit();
+        });
+    });
+    function ClearResult() {
+        $("#Cart").empty();
+    }
+</script>
