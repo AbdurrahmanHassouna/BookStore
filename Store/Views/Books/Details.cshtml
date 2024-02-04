@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="~/Content/Site.css" rel="stylesheet" />
+
 
 <h2>Details</h2>
 
@@ -34,29 +33,15 @@
                             @Html.DisplayNameFor(model => model.BookStar)
                         </dt>
                         <dd class="col-sm-9">
-                                @for (int i = 0; i < (int)Model.BookStar; i++)
-                                {
-                                    <span class="fa fa-star checked"></span>
-                                }
-                                @if ((int)Model.BookStar != Model.BookStar)
-                                {
-                                    <span class="fa fa-star-half-alt checked"></span>
-                                    if ((int)Model.BookStar + 1 < 5)
-                                    {
-                                        for (int i = (int)Model.BookStar; i < 5; i++)
-                                        {
-                                            <span class="fa fa-star"></span>
-                                        }
-                                    }
+                            @for (int i = 0; i < (int)Model.BookStar; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
 
-                                }
-                                else
-                                {
-                                    for (int i = (int)Model.BookStar; i < 5; i++)
-                                    {
-                                        <span class="fa fa-star"></span>
-                                    }
-                                }
+                            @for (int i = (int)Model.BookStar; i < 5; i++)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
                         </dd>
 
                         <dt class="col-sm-3">
