@@ -46,8 +46,8 @@ namespace Store.Controllers
             }
             else
             {
-                books = db.Books.Include(b => b.Author).Include(b => b.Category).Where(b => b.Name.StartsWith(Search) && b.QuantityInStock == 0).OrderBy(b => b.Name).ToList();
-                books.AddRange(db.Books.Include(b => b.Author).Include(b => b.Category).Where(b => b.Name.Contains(Search)&& !b.Name.StartsWith(Search) && b.QuantityInStock == 0).OrderBy(b => b.Name));
+                books = db.Books.Include(b => b.Author).Include(b => b.Category).Where(b => b.Name.StartsWith(Search) && b.QuantityInStock != 0).OrderBy(b => b.Name).ToList();
+                books.AddRange(db.Books.Include(b => b.Author).Include(b => b.Category).Where(b => b.Name.Contains(Search)&& !b.Name.StartsWith(Search) && b.QuantityInStock != 0).OrderBy(b => b.Name));
             }
             return View(books.ToPagedList(page ?? 1, 25));
         }
@@ -94,7 +94,7 @@ namespace Store.Controllers
                 }
                 book.IsDeleted=false;
                 book.IsVisible=true;
-               
+
                 book.CreatedDate = DateTime.Now;
                 book.UpdatedDate = DateTime.Now;
 
@@ -175,12 +175,23 @@ namespace Store.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Book book = db.Books.Find(id);
             db.Books.Remove(book);
             db.SaveChanges();
+            try
+            {
+                /*string fileName = Path.GetFileName(book.img_path.Split('/').Last());*/
+                string filePath = Path.Combine(Server.MapPath(book.img_path));
+                FileInfo fileInfo = new FileInfo(filePath);
+                fileInfo.Delete();
+            }
+            catch (Exception ex)
+            {
+                // what to write 18:31
+            }
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
