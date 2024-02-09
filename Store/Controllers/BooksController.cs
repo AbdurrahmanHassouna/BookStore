@@ -22,7 +22,7 @@ namespace Store.Controllers
         public JsonResult AutoComplete(string term)
         {
             List<string> result = db.Books.Where(b => b.Name.StartsWith(term)).Select(n => n.Name).ToList();
-            result.AddRange(db.Books.Where<Book>(b => b.Name.Contains(term) && !b.Name.StartsWith(term)).Select(n => n.Name));
+            result.AddRange(db.Books.Where(b => b.Name.Contains(term) && !b.Name.StartsWith(term)).Select(n => n.Name));
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         // GET: Books
