@@ -16,7 +16,7 @@ namespace Store.Models
     }
     public class UserMetaData
     {
-        [Remote("IsUserNameAvailable", "Account", ErrorMessage = "User Name already Used")]
+        
         [Required, MinLength(5)]
         public string Name { get; set; }
         [Required, MinLength(4), DataType(DataType.Password)]

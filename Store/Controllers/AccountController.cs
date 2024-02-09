@@ -52,10 +52,10 @@ namespace Store.Controllers
             }
             return View(model);
         }
-        public JsonResult IsUserNameAvailable(string Name)
+        /*public JsonResult IsUserNameAvailable(string Name)
         {
             return Json(!_dbContext.Users.Any(u => u.Name == Name), JsonRequestBehavior.AllowGet);
-        }
+        }*/
         public ActionResult Login()
         {
             return View();

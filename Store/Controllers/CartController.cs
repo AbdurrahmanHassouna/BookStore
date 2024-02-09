@@ -28,7 +28,7 @@ namespace Store.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return new HttpUnauthorizedResult();
+                RedirectToAction("Login", "Account");
             }
             var carItems = CartCookieHelper.GetCartItems(HttpContext);
 
