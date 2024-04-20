@@ -433,6 +433,6 @@ D:\GitHub\BookStore\Store\bin\System.Web.WebPages.Deployment.xml
 D:\GitHub\BookStore\Store\bin\System.Web.WebPages.Razor.xml
 D:\GitHub\BookStore\Store\obj\Debug\Store.csproj.AssemblyReference.cache
 D:\GitHub\BookStore\Store\obj\Debug\Store.csproj.CoreCompileInputs.cache
-D:\GitHub\BookStore\Store\obj\Debug\Store.csproj.CopyComplete
 D:\GitHub\BookStore\Store\obj\Debug\Store.dll
 D:\GitHub\BookStore\Store\obj\Debug\Store.pdb
+D:\GitHub\BookStore\Store\obj\Debug\Store.csproj.Up2Date

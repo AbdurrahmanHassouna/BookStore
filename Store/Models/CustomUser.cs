@@ -17,7 +17,7 @@ namespace Store.Models
     public class UserMetaData
     {
         
-        [Required, MinLength(5)]
+        [Required, MinLength(4)]
         public string Name { get; set; }
         [Required, MinLength(4), DataType(DataType.Password)]
         public string Password { get; set; }

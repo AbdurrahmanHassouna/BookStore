@@ -34,7 +34,7 @@
                     <li class="nav-item">@Html.ActionLink("Books", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Authors", "Index", "Authors", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Categories", "Index", "Categories", new { area = "" }, new { @class = "nav-link" })</li>
-                    
+
                     @if (User.IsInRole("admin"))
                     {
 
@@ -68,7 +68,7 @@
                     <script type="text/javascript">
                         $(function () {
                             $("#SearchHome").autocomplete({
-                                source: './Home/AutoComplete'
+                                source: '@Url.Action("AutoComplete", "Home")'
                             })
                         });
                     </script>
@@ -88,7 +88,7 @@
                     <script type="text/javascript">
                         $(function () {
                             $("#SearchAdmin").autocomplete({
-                                source: './Books/AutoComplete'
+                                source: '@Url.Action("AutoComplete", "Books")'
                             })
                         });
                     </script>
@@ -96,7 +96,7 @@
                 @if (!((ViewContext.RouteData.Values["controller"].ToString() == "Cart") || (ViewContext.RouteData.Values["controller"].ToString() == "Orders")))
                 {
 
-                    <a class="nav-item nav-link ml-3" href="./Cart/Index" style="position: relative;">
+                    <a class="nav-item nav-link ml-3" href="~/Cart/Index" style="position: relative;">
                         <img src="~/Assets/icons8-cart-50.png" class="rounded" alt="Cart Icon" style="width: 40px; height: 40px;background-color:aquamarine" />
 
                         <span id="cartItemCount" class="badge badge-pill badge-danger" style="position: absolute; top: -5px; right: -5px;">@Html.Partial("_CartCount", Store.HelperClasses.CartCookieHelper.GetCartItems(Context).Count)</span>

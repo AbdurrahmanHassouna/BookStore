@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Store.Models.CartItem>
+﻿@model IList<Store.Models.CartItem>
 
 <table class="table table-bordered table-hover">
     <thead class="table-dark">
@@ -10,17 +10,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @for(int i=0;i<Model.Count;i++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.Name)
+                    @Html.DisplayFor(modelItem => Model[i].Book.Name)
                 </td>
                 <td>
-                    ( $@item.Book.Price x @item.Quantity )   ==>   $@Html.DisplayFor(modelItem => item.Price)
+                    ( $@Model[i].Book.Price x @Model[i].Quantity )   ==>   $@Html.DisplayFor(modelItem => Model[i].Price)
                 </td>
                 <td>
-                    @using (Ajax.BeginForm("UpdateCart", "Cart", new { Id = item.Book.Id }, new AjaxOptions
+                    @using (Ajax.BeginForm("UpdateCart", "Cart", new { Id = Model[i].Book.Id }, new AjaxOptions
                     {
                         HttpMethod = "POST",
                         InsertionMode = InsertionMode.Replace,
@@ -30,21 +30,22 @@
                     {
                         <div class="dropdown-container">
                             <div class="dropdown-toggle">
-                                @Html.DropDownList("Quantity", item.Book.selectListItems, new
+                                @Html.DropDownList("Quantity", Model[i].Book.selectListItems, new
                            {
                                @class = "form-control dropdown",
-                               @value = item.Quantity,
+                               @value = Model[i].Quantity,
                                @selected = "selected"
+                               
                            })
                                 <div class="slide-content">
-                                    
+
                                 </div>
                             </div>
                         </div>
                     }
                 </td>
                 <td>
-                    @Ajax.ActionLink("Delete", "Delete", "Cart", new { @id = item.Book.Id },
+                    @Ajax.ActionLink("Delete", "Delete", "Cart", new { @id = Model[i].Book.Id },
                         new AjaxOptions
                         {
                             HttpMethod = "POST",
@@ -78,6 +79,11 @@
             // Submit the form when the dropdown changes
             $(this).closest('form').submit();
         });
+        /*$('.dropdown').change(function (e) {
+            var dropdownId = $(this).attr('id'); // Get ID of changed dropdown
+            var formId = dropdownId.replace('dropdown', 'form'); // Assuming forms have IDs like 'form123'
+            $('#' + formId).submit(); // Submit only the relevant form
+        });*/
     });
     function ClearResult() {
         $("#Cart").empty();

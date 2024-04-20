@@ -55,3 +55,22 @@ textarea {
     padding: 10px;
     z-index: 1000;
 }
+/* Styles for the autocomplete container */
+.ui-autocomplete {
+    background-color: #f0f0f0; /* Background of the list */
+    border: 1px solid #ddd;
+    width: 250px; /* Adjust the width as needed */
+}
+
+/* Styles for individual autocomplete items */
+.ui-menu-item {
+    color: #555; /* Text color */
+    padding: 5px 10px;
+}
+
+    /* Styles for the hovered item */
+    .ui-menu-item:hover {
+        background-color: #e0e0e0;
+        color: #000;
+    }
+

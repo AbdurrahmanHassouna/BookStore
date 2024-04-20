@@ -77,7 +77,7 @@ namespace Store.Controllers
                 }
             }
             CartCookieHelper.SetCartItems(HttpContext, cartItems);
-            Cart cart = new Cart();
+            
             List<CartItem> cartlist = new List<CartItem>();
             foreach (var item in cartItems)
             {
@@ -93,10 +93,10 @@ namespace Store.Controllers
                 });
                 cartItem.Book.selectListItems = new SelectList(quantityList, "Value", "Text", cartItem.Quantity);
 
-                cart.CartItems.Add(cartItem);
+                cartlist.Add(cartItem);
 
             }
-            return PartialView("_Cart", cart.CartItems);
+            return PartialView("_Cart", cartlist);
         }
         public ActionResult Index()
         {

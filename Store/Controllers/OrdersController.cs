@@ -29,10 +29,22 @@ namespace Store.Controllers
             List<OrderItem> orderlist = new List<OrderItem>();
             foreach (var item in OrderItems)
             {
+                Book book = db.Books.Where(b => b.Id==item.Key).Single();
+                if (item.Value<=book.QuantityInStock)
+                {
+                    book.QuantityInStock = book.QuantityInStock-item.Value;
+                    db.Entry(book).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else 
+                {
+                    ViewBag.ErrorMessage = "unavailable Quantity";
+                    return View("Error");
+                }
                 OrderItem OrderItem = new OrderItem();
-                OrderItem.BookName = db.Books.Where(b => b.Id==item.Key).Select(b => b.Name).Single();
+                OrderItem.BookName = book.Name;
                 OrderItem.Quantity = item.Value;
-                OrderItem.Price = db.Books.Where(b => b.Id==item.Key).Select(b => b.Price).Single()*item.Value;
+                OrderItem.Price = book.Price*item.Value;
                 orderlist.Add(OrderItem);
             }
 
