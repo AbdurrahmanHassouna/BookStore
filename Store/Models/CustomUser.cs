@@ -9,11 +9,7 @@ using System.Web.Mvc;
 namespace Store.Models
 {
     [MetadataType(typeof(UserMetaData))]
-    public partial class User
-    {
-
-
-    }
+    public partial class User {}
     public class UserMetaData
     {
         

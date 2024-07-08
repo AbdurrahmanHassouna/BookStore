@@ -33,8 +33,6 @@ namespace Store.Controllers
             }
             if (ModelState.IsValid)
             {
-
-
                 _dbContext.Users.Add(new User { Name = model.Name, Password = model.Password });
                 _dbContext.SaveChanges();
                 _dbContext.UserRolesMappings.Add(new UserRolesMapping

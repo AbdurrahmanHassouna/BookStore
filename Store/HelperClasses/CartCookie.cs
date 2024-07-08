@@ -10,7 +10,6 @@ namespace Store.HelperClasses
     {
         public static void SetCartItems(HttpContextBase httpContext, Dictionary<int, int> items)
         {
-            // Serialize and store the item IDs in a cookie
             var serializedItems = JsonConvert.SerializeObject(items);
             var cookie = new HttpCookie("CartItems", serializedItems);
 
@@ -19,7 +18,6 @@ namespace Store.HelperClasses
 
         public static Dictionary<int, int> GetCartItems(HttpContextBase httpContext)
         {
-            // Deserialize and retrieve the item IDs from the cookie
             var cookie = httpContext.Request.Cookies["CartItems"];
 
             return (cookie != null)

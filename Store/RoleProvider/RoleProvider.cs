@@ -45,7 +45,11 @@ namespace Store.Models
 
         public override string[] GetAllRoles()
         {
-            throw new NotImplementedException();
+            using (BookStore context = new BookStore())
+            {
+                return (from role in context.RoleMasters
+                        select role.RollName).ToArray();
+            }
         }
 
         public override string[] GetRolesForUser(string username)

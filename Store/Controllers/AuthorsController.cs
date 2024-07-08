@@ -23,12 +23,14 @@ namespace Store.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         // GET: Authors
+        [AllowAnonymous]
         public ActionResult Index()
         {
 
             return View(db.Authors.Where(b => b.Books.Count>0).Include(b => b.Books).ToList());
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Index(string Search)
         {
             var result = db.Authors.Where(b => b.Name.StartsWith(Search) && b.Books.Count>0).Include(b => b.Books).OrderBy(n => n.Name).ToList();
